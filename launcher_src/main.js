@@ -48,13 +48,13 @@ app.get("/reset-acb", async (req, res) => {
     is_kill = true;
   }
   funcStartSafekey();
-  return {
+  return res.json({
     success: true,
     is_kill: is_kill,
     data: {
       currentPID: currentPID,
     },
-  };
+  });
 });
 
 app.listen(port, () => {
