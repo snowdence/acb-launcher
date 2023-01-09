@@ -46,8 +46,10 @@ app.get("/reset-acb", async (req, res) => {
     console.log("killing " + currentPID);
     kill(currentPID);
     is_kill = true;
+    await delay(3000);
   }
   funcStartSafekey();
+  await delay(1000);
   return res.json({
     success: true,
     is_kill: is_kill,
