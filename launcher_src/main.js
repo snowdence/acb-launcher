@@ -1,14 +1,20 @@
 console.log("Main");
-var exec = require("child_process").execFile;
+var spawn = require("child_process").spawn;
 
 var fun = function () {
   console.log("fun() start");
-  exec("main.exe", function (error, stdout, stderr) {
-    if (error) {
-      console.log(error);
-    }
+  let mainSafekey = spawn("./main.exe");
 
-    console.log(stdout.toString());
+  mainSafekey.stdout.on("data", function (data) {
+    console.log("stdout: " + data.toString());
+  });
+
+  mainSafekey.stderr.on("data", function (data) {
+    console.log("stderr: " + data.toString());
+  });
+
+  mainSafekey.on("exit", function (code) {
+    console.log("child process exited with code " + code.toString());
   });
 };
 fun();
